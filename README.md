@@ -1,7 +1,7 @@
 - 👋 Hi, I’m @perckgg
 - 👀 I’m interested in coding but it still hard for me.
 - 🌱 I’m currently learning Computer Sience at HCMUT.
-- 💞️ I hope that i can dev-up a special program in the nearly future.
+- 💞️ I hope that I can dev-up a special program in the nearly future.
 
 
 <!---
