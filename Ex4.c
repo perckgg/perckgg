@@ -16,20 +16,21 @@ int main(int argc, char **argv){
 	struct node* new = NULL;
 	int count2 = 0;
 	int count3 = 0;
-	file = fopen("numbers.txt","r");
+	file = fopen("numbers.txt","r");//open file in read mode
 	if(file == NULL){
-		printf("Error opening file. ");
+		printf("File Error!");
 		exit(1);
 	}
+	// read non-negative numbers in file "numbers.txt" then store them into the linked list
 	while(fscanf(file,"%d",&num) != EOF){
-	 new = (struct node*)malloc(sizeof(struct node));
- 	 new->data = num;
-	 new->next = NULL;
-	 if(head == NULL){
+	new = (struct node*)malloc(sizeof(struct node));
+ 	new->data = num;
+	new->next = NULL;
+	if(head == NULL){
 	   head = new;
 	   current = new;
-	  }
-         else{
+	}
+    else{
 	   current->next = new;
 	   current = new;
 	  }	 
@@ -37,28 +38,31 @@ int main(int argc, char **argv){
 	fclose(file);
 	current = head;
 	pid_t pid = fork();
-	if(pid < -1){
+	if(pid < -1){ //Failure 
 		printf("Error creating child process. ");
 		exit(1);
 	}
-	else if(pid == 0){
+	else if(pid == 0){//Child process
+		//Count the numbers divisible by 2
 		while(current != NULL){
 			if(current->data %3 == 0){
 				count3 += 1;
 			}
 			current = current->next;
 		}
+		printf("Numbers divisible by 3: %d\n",count3);
 	}
-	else{
-		wait(NULL);
+	else{ //Parent Process
+		wait(NULL);//wait for the child process
 		current = head;
+		//Count the numbers divisible by 2
 		while(current != NULL){
 			if(current->data %2 == 0){
 				count2 += 1;
 			}
+			current = current->next;
 		}
+		printf("Numbers divisible by 2: %d\n",count2);
 	}
-	printf("Numbers divisible by 3: %d\n",count3);
-	printf("NUmbers divisible by 2: %d\n",count2);
 	return 0;
 }
